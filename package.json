@@ -9,7 +9,7 @@
     "dev:install": "docker-compose build",
     "dev:up": "docker-compose up",
     "dev:down": "docker-compose down",
-    "dev:uninstall": "docker-compose --rm all",
+    "dev:uninstall": "docker-compose rm --all",
     "dev:connect:app": "docker exec -it target_app_1 bash",
     "dev:connect:yoga": "docker exec -it target_yoga-server_1 bash",
     "dev:connect:db": "mysql -h localhost -p 3306 -U root -d myappdb"
