@@ -1,0 +1,9 @@
+endpoint: http://localhost:4466
+#endpoint: https://us1.prisma.sh/bo-slott/sick-fits-prisma-backend/dev
+datamodel: datamodel.prisma
+seed:
+  import: seed.graphql
+#secret: ${env:PRISMA_SECRET}
+hooks:
+  post-deploy:
+    - graphql get-schema -p prisma

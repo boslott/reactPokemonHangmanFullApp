@@ -1,0 +1,72 @@
+version: '3.1'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.app.dev
+    networks:
+      - frontend
+      - backend-api
+    ports:
+      - "7777:7777"
+    volumes:
+      - ./app:/usr/src/app
+  
+  yoga:
+    build:
+      context: .
+      dockerfile: Dockerfile.yoga.dev
+    networks:
+      - backend-api
+    ports:
+      - "4444:4444"
+    volumes:
+      - ./yoga-server:/usr/src/yoga
+    depends_on:
+      - mysql
+      - prisma
+
+  prisma:
+    image: prismagraphql/prisma:1.20
+    restart: always
+    ports:
+      - "4466:4466"
+    networks:
+      - backend-api
+      - backend-db
+    depends_on:
+      - mysql
+    environment:
+      # PRISMA_SECRET_FILE: /run/secrets/prisma_secret
+      PRISMA_CONFIG: |
+        port: 4466
+        databases:
+          default:
+            connector: mysql
+            host: mysql
+            migrations: true
+            port: 3306
+            user: root
+            password: prisma
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: prisma
+    ports:
+      - '3306:3306'
+    networks:
+      - backend-db
+    volumes:
+      - mysql:/var/lib/mysql
+
+
+
+networks:
+  frontend:
+  backend-api:
+  backend-db:
+
+volumes:
+  mysql:

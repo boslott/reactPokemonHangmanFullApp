@@ -1,0 +1,13 @@
+FROM node:10.13.0
+
+# Copy server package.json and install server dependencies
+WORKDIR /usr/src/yoga
+COPY ./yoga-server/package*.json ./
+RUN npm install
+
+# Copy server files
+COPY ./yoga-server/. ./
+
+EXPOSE 4444
+
+CMD ["npm", "run", "dev"]

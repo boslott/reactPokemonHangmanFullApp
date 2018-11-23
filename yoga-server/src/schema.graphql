@@ -1,0 +1,29 @@
+"""
+  Bo's Personal Notes
+  
+  This is our public facing API 
+  This is what we are interfacing with our JS
+
+  This is the schema the GraphQL-Yoga references
+  
+  The import is used to bring in the types from the Prisma-generated file 
+  There are no imports in graphql, so Prisma does within a comment
+ 
+"""
+
+
+type Mutation {
+  hi: String
+}
+
+type Query {
+  users: User
+}
+
+""" We define User on the client side to prevent security issues of users being able to reset each other's passwords and the such """
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  password: String!
+}
