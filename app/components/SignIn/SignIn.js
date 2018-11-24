@@ -4,27 +4,25 @@ import gql from 'graphql-tag';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 
-import FormStyle from '../Form/FormStyle'; 
+import FormStyle from '../Form/FormStyle';
 import Error from '../ErrorMessage/ErrorMessage';
 import { CURRENT_USER_QUERY } from '../User/User';
 
-const CREATE_USER_MUTATION = gql`
-  mutation CREATE_USER_MUTATION($name: String!, $email: String!, $password: String!) {
-    createUser(name: $name, email: $email, password: $password) {
+const SIGNIN_MUTATION = gql`
+  mutation SIGNIN_MUTATION($email: String!, $password: String!) {
+    signin(email: $email, password: $password) {
       id
-      name
       email
+      name
     }
   }
 `;
 
-class Register extends Component {
+class SignIn extends Component {
 
   state = {
-    name: '',
     email: '',
     password: '',
-    confirmPassword: '',
   }
 
   handleChange = (e) => {
@@ -34,41 +32,28 @@ class Register extends Component {
   render() {
     return (
       <Mutation
-        mutation={CREATE_USER_MUTATION}
+        mutation={SIGNIN_MUTATION}
         variables={this.state}
-        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+        refetchQueries={[ { query: CURRENT_USER_QUERY } ]}
       >
-        {(createUser, { loading, error }) => {
+        {(signin, { loading, error }) => {
           return (
             <FormStyle
               method="POST"
               onSubmit={async e => {
                 e.preventDefault();
                 NProgress.start();
-                const res = await createUser();
-                console.log(res);
-                this.setState({ name: '', email: '', password: '', confirmPassword: '' });
+                const res = await signin();
+                this.setState({ email: '', password: '' });
                 Router.push({
                   pathname: '/history',
-                  query: { name: res.data.createUser.name },
+                  query: { name: res.data.signin.name },
                 }, '/history');
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
-                <h2>Register For An Account</h2>
+                <h2>Sign Into Your Account</h2>
                 <Error error={error} />
-                <div className="input-group">
-                  <label htmlFor="name">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={this.state.name}
-                    onChange={this.handleChange}
-                  />
-                </div>
-
                 <div className="input-group">
                   <label htmlFor="email">
                     Email
@@ -93,20 +78,7 @@ class Register extends Component {
                   />
                 </div>
 
-                <div className="input-group">
-                  <label htmlFor="confirmPassword">
-                    Confirm Password
-                  </label>
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    value={this.state.confirmPassword}
-                    onChange={this.handleChange}
-                  />
-                </div>
-                <div className="input-group">
-                  <button type="submit">Create User!</button>
-                </div>
+                <button type="submit">Sign In!</button>
               </fieldset>
             </FormStyle>
           )
@@ -116,4 +88,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default SignIn;

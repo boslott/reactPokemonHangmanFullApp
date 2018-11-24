@@ -1,5 +1,7 @@
-const HistoryPage = () => (
-  <p>History Page!</p>
+const HistoryPage = props => (
+  <div>
+    <p>Hello, {props.query.name}!</p>
+  </div>
 );
 
 export default HistoryPage;
