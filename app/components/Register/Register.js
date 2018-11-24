@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 
 import FormStyle from '../Form/FormStyle'; 
 import Error from '../ErrorMessage/ErrorMessage';
+import { CURRENT_USER_QUERY } from '../User/User';
 
 const CREATE_USER_MUTATION = gql`
   mutation CREATE_USER_MUTATION($name: String!, $email: String!, $password: String!) {
@@ -11,6 +12,14 @@ const CREATE_USER_MUTATION = gql`
       id
       name
       email
+    }
+  }
+`;
+
+const CREATE_BO_MUTATION = gql`
+  mutation CREATE_USER_MUTATION($name: String!, $email: String!, $password: String!) {
+    createUser(name: $name, email: $email, password: $password) {
+      name
     }
   }
 `;
@@ -34,6 +43,7 @@ class Register extends Component {
       <Mutation
         mutation={CREATE_USER_MUTATION}
         variables={this.state}
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
         {(createUser, { loading, error }) => {
           return (
