@@ -1,11 +1,11 @@
-mutation {
-  createUser(
-    data: {
-      name: "Bo"
-      email: "bo@bo.bo"
-      password: "secretPasswordShouldBeHashed123"
-      }
-  ) {
-    id
-  }
-}
+# mutation {
+#   createBoUser(
+#     data: {
+#       name: "Bo"
+#       email: "bo@bo.bo"
+#       password: "secretPasswordShouldBeHashed123"
+#       }
+#   ) {
+#     id
+#   }
+# }

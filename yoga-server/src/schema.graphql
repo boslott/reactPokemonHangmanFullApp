@@ -11,12 +11,21 @@
  
 """
 
+# import Item, ItemCreateInput from './generated/prisma.graphql'
+
+type SuccessMessage {
+  message: String
+}
+
 
 type Mutation {
-  hi: String
+  createUser(name: String!, email: String!, password: String!): User!
+  signin(email: String!, password: String!): User!
+  signout: SuccessMessage
 }
 
 type Query {
+  me: User
   users: User
 }
 
@@ -26,4 +35,5 @@ type User {
   name: String!
   email: String!
   password: String!
+  permissions: [Permission!]! 
 }

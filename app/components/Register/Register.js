@@ -3,8 +3,20 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import FormStyle from '../Form/FormStyle'; 
+import Error from '../ErrorMessage/ErrorMessage';
+import { CURRENT_USER_QUERY } from '../User/User';
 
 const CREATE_USER_MUTATION = gql`
+  mutation CREATE_USER_MUTATION($name: String!, $email: String!, $password: String!) {
+    createUser(name: $name, email: $email, password: $password) {
+      id
+      name
+      email
+    }
+  }
+`;
+
+const CREATE_BO_MUTATION = gql`
   mutation CREATE_USER_MUTATION($name: String!, $email: String!, $password: String!) {
     createUser(name: $name, email: $email, password: $password) {
       name
@@ -31,8 +43,9 @@ class Register extends Component {
       <Mutation
         mutation={CREATE_USER_MUTATION}
         variables={this.state}
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
-        {(createUser, { data, loading, error }) => {
+        {(createUser, { loading, error }) => {
           return (
             <FormStyle
               method="POST"
@@ -43,8 +56,9 @@ class Register extends Component {
                 this.setState({ name: '', email: '', password: '', confirmPassword: '' });
               }}
             >
-              <fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Register For An Account</h2>
+                <Error error={error} />
                 <div className="input-group">
                   <label htmlFor="name">
                     Name
