@@ -43,6 +43,16 @@ const Mutation = {
     return user;
   },
 
+  async deleteUser(parent, args, ctx, info) {
+    const where = { id: args.id};
+    // 1. Find the item
+    const user = await ctx.db.query.user({ where }, `{
+      id
+    }`);
+
+    return ctx.db.mutation.deleteUser({ where }, info);
+  },
+
   async signin(parent, { email, password }, ctx, info) {
     // 1. Check if there is a user with that email
     const user = await ctx.db.query.user({ where: { email } });

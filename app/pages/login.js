@@ -1,7 +1,7 @@
+import SignIn from '../components/SignIn/SignIn';
+
 const LoginPage = props => (
-  <div>
-    <p>Login!</p>
-  </div>
+  <SignIn />
 );
 
 export default LoginPage;
