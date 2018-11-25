@@ -46,9 +46,9 @@ class SignIn extends Component {
                 const res = await signin();
                 this.setState({ email: '', password: '' });
                 Router.push({
-                  pathname: '/history',
+                  pathname: '/menu',
                   query: { name: res.data.signin.name },
-                }, '/history');
+                }, '/menu');
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>

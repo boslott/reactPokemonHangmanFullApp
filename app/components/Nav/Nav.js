@@ -11,6 +11,9 @@ const Nav = () => (
       <NavStyles data-test="nav">
         {me ? (
           <>
+            <Link  href="/menu">
+              <a>Menu</a>
+            </Link>
             <Link href="/play">
               <a>Play</a>
             </Link>

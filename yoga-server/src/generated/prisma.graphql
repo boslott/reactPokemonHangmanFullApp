@@ -1,5 +1,9 @@
 # source: http://localhost:4466
-# timestamp: Fri Nov 23 2018 11:45:46 GMT-0500 (EST)
+# timestamp: Sat Nov 24 2018 14:09:37 GMT-0500 (EST)
+
+type AggregatePokemon {
+  count: Int!
+}
 
 type AggregateUser {
   count: Int!
@@ -18,11 +22,17 @@ scalar Long
 
 type Mutation {
   createUser(data: UserCreateInput!): User!
+  createPokemon(data: PokemonCreateInput!): Pokemon!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updatePokemon(data: PokemonUpdateInput!, where: PokemonWhereUniqueInput!): Pokemon
   deleteUser(where: UserWhereUniqueInput!): User
+  deletePokemon(where: PokemonWhereUniqueInput!): Pokemon
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertPokemon(where: PokemonWhereUniqueInput!, create: PokemonCreateInput!, update: PokemonUpdateInput!): Pokemon!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateManyPokemons(data: PokemonUpdateManyMutationInput!, where: PokemonWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyPokemons(where: PokemonWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -58,10 +68,246 @@ enum Permission {
   PERMISSIONUPDATE
 }
 
+type Pokemon implements Node {
+  id: ID!
+  name: String!
+  image: String!
+}
+
+"""A connection to a list of items."""
+type PokemonConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PokemonEdge]!
+  aggregate: AggregatePokemon!
+}
+
+input PokemonCreateInput {
+  name: String!
+  image: String!
+}
+
+"""An edge in a connection."""
+type PokemonEdge {
+  """The item at the end of the edge."""
+  node: Pokemon!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum PokemonOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  image_ASC
+  image_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type PokemonPreviousValues {
+  id: ID!
+  name: String!
+  image: String!
+}
+
+type PokemonSubscriptionPayload {
+  mutation: MutationType!
+  node: Pokemon
+  updatedFields: [String!]
+  previousValues: PokemonPreviousValues
+}
+
+input PokemonSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PokemonSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PokemonSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PokemonSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PokemonWhereInput
+}
+
+input PokemonUpdateInput {
+  name: String
+  image: String
+}
+
+input PokemonUpdateManyMutationInput {
+  name: String
+  image: String
+}
+
+input PokemonWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PokemonWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PokemonWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PokemonWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  image: String
+
+  """All values that are not equal to given value."""
+  image_not: String
+
+  """All values that are contained in given list."""
+  image_in: [String!]
+
+  """All values that are not contained in given list."""
+  image_not_in: [String!]
+
+  """All values less than the given value."""
+  image_lt: String
+
+  """All values less than or equal the given value."""
+  image_lte: String
+
+  """All values greater than the given value."""
+  image_gt: String
+
+  """All values greater than or equal the given value."""
+  image_gte: String
+
+  """All values containing the given string."""
+  image_contains: String
+
+  """All values not containing the given string."""
+  image_not_contains: String
+
+  """All values starting with the given string."""
+  image_starts_with: String
+
+  """All values not starting with the given string."""
+  image_not_starts_with: String
+
+  """All values ending with the given string."""
+  image_ends_with: String
+
+  """All values not ending with the given string."""
+  image_not_ends_with: String
+}
+
+input PokemonWhereUniqueInput {
+  id: ID
+}
+
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  pokemons(where: PokemonWhereInput, orderBy: PokemonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Pokemon]!
   user(where: UserWhereUniqueInput!): User
+  pokemon(where: PokemonWhereUniqueInput!): Pokemon
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  pokemonsConnection(where: PokemonWhereInput, orderBy: PokemonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PokemonConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -72,6 +318,7 @@ type Query {
 
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  pokemon(where: PokemonSubscriptionWhereInput): PokemonSubscriptionPayload
 }
 
 type User implements Node {

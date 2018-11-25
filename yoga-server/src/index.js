@@ -48,8 +48,6 @@ server.express.use( async (req, res, next) => {
 });
 
 
-
-
   // We only want this endpoint to be visited from our approved URLs
   // Don't want any website to hit our endpoint, only our specific website, so we use cors
 server.start({

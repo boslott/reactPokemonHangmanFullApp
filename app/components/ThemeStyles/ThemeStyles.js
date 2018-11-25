@@ -20,8 +20,9 @@ const theme = {
   offWhite: '#F8FAFC',
   black: '#22292F',
 
+
   maxWidth: '100rem',
-  boxShadow: '0 1.2rem 2.4rem 0 rgba(0, 0, 0, 0.09)',
+  boxShadow: '0 1.2rem 2.4rem 0 rgba(0, 0, 0, 0.2)',
 };
 
 injectGlobal`

@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 const Query = {
   me(parent, args, ctx, info) {
     // Check if there is a current user ID
@@ -11,7 +13,7 @@ const Query = {
       info,
     ); 
   },
-  
+
   async users(parent, args, ctx, info) {
     // 1. Check if they are logged in
     if(!ctx.request.userId) {
@@ -24,6 +26,8 @@ const Query = {
     // 3. If they do, query all the users
     return ctx.db.query.users({}, info);
   },
+
+
 };
 
 module.exports = Query;
