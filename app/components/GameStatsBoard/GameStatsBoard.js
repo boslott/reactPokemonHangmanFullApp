@@ -4,7 +4,8 @@ class GameStatsBoard extends Component {
   render() {
     return (
       <div>
-        Game Stats!
+        <button onClick={this.props.changeShown}>Reveal</button>
+        <button onClick={this.props.newPokemon}>New</button>
       </div>
     );
   }

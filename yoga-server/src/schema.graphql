@@ -38,3 +38,9 @@ type User {
   password: String!
   permissions: [Permission!]! 
 }
+
+type Pokemon {
+  id: ID!
+  name: String!
+  image: String!
+}

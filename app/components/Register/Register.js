@@ -49,9 +49,9 @@ class Register extends Component {
                 console.log(res);
                 this.setState({ name: '', email: '', password: '', confirmPassword: '' });
                 Router.push({
-                  pathname: '/history',
+                  pathname: '/menu',
                   query: { name: res.data.createUser.name },
-                }, '/history');
+                }, '/menu');
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>

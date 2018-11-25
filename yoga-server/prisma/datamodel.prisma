@@ -4,6 +4,13 @@ enum Permission {
   PERMISSIONUPDATE
 }
 
+enum GameOption {
+  DEMO
+  EASY
+  MEDIUM
+  HARD
+}
+
 type User {
   id: ID! @unique
   name: String!
@@ -12,4 +19,12 @@ type User {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission]
+  gameOptions: [GameOption]
 }
+
+type Pokemon {
+  id: ID! @unique
+  name: String!
+  image: String!
+}
+
