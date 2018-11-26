@@ -20,6 +20,9 @@ const theme = {
   offWhite: '#F8FAFC',
   black: '#22292F',
 
+  statsBoardBorder: '#462A16',
+  statsBoardBG: '#613B1F',
+
 
   maxWidth: '100rem',
   boxShadow: '0 1.2rem 2.4rem 0 rgba(0, 0, 0, 0.2)',

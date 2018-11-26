@@ -80,6 +80,35 @@ const Mutation = {
     return { message: 'Goodbye!'};
   },
 
+  async changeGameOption(parent, args, ctx, info) {
+    // 1. Check if they are logged in
+    if(!ctx.request.userId) {
+      throw new Error('You must be logged in!');
+    }
+
+    // 2. Get current user
+    const user = await ctx.db.query.user(
+      {
+        where: { id: ctx.request.userId },
+      },
+      info,
+    );
+
+    // 3. Change the game option
+    return ctx.db.mutation.updateUser(
+      {
+        // Permissions is its own enum so we have to use 'set' for Prisma
+        data: {
+          gameOptions: {
+            set: args.option,
+          }
+        },
+        // Use the id we passed along for the ride because we might not be updating our own permissions, rather someone else's
+        where: { id: args.userId },
+      },
+      info,
+    );
+  },
 
 };
 

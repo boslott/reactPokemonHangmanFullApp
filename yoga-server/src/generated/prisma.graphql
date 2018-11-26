@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Sat Nov 24 2018 14:09:37 GMT-0500 (EST)
+# timestamp: Sun Nov 25 2018 11:52:44 GMT-0500 (EST)
 
 type AggregatePokemon {
   count: Int!
@@ -12,6 +12,13 @@ type AggregateUser {
 type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
+}
+
+enum GameOption {
+  DEMO
+  EASY
+  MEDIUM
+  HARD
 }
 
 """
@@ -329,6 +336,7 @@ type User implements Node {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission!]!
+  gameOptions: [GameOption!]!
 }
 
 """A connection to a list of items."""
@@ -341,6 +349,10 @@ type UserConnection {
   aggregate: AggregateUser!
 }
 
+input UserCreategameOptionsInput {
+  set: [GameOption!]
+}
+
 input UserCreateInput {
   name: String!
   email: String!
@@ -348,6 +360,7 @@ input UserCreateInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
+  gameOptions: UserCreategameOptionsInput
 }
 
 input UserCreatepermissionsInput {
@@ -390,6 +403,7 @@ type UserPreviousValues {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission!]!
+  gameOptions: [GameOption!]!
 }
 
 type UserSubscriptionPayload {
@@ -431,6 +445,10 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdategameOptionsInput {
+  set: [GameOption!]
+}
+
 input UserUpdateInput {
   name: String
   email: String
@@ -438,6 +456,7 @@ input UserUpdateInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
+  gameOptions: UserUpdategameOptionsInput
 }
 
 input UserUpdateManyMutationInput {
@@ -447,6 +466,7 @@ input UserUpdateManyMutationInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
+  gameOptions: UserUpdategameOptionsInput
 }
 
 input UserUpdatepermissionsInput {

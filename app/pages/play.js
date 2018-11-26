@@ -8,11 +8,14 @@ import PokemonImage from '../components/PokemonImage/PokemonImage';
 import NameDisplay from '../components/NameDisplay/NameDisplay';
 import GameStatsBoard from '../components/GameStatsBoard/GameStatsBoard';
 import { Container, Row, Column } from '../components/GridStyles/GridStyles';
+import { CURRENT_USER_QUERY } from '../components/User/User';
+import { GET_LOCALSTATE_CURRENT_USER } from '../graphql/currentUser';
 
 
 class PlayPage extends Component {
 
   state = {
+    currentGameOption: '',
     currentPokemonName: '',
     currentPokemonImage: '',
     shown: false,
@@ -49,21 +52,29 @@ class PlayPage extends Component {
 
   render() {
     return (
-      <Container>
-        <Row>
-          <Column>
-            {!this.state.loading && (
-              <PokemonImage image={this.state.currentPokemonImage} shown={this.state.shown} />
-            )}
-          </Column>
-          <Column>
-            <GameStatsBoard changeShown={this.changeShown} newPokemon={this.newPokemon} />
-          </Column>
-        </Row>
-        <Row>
-          <NameDisplay  name={this.state.currentPokemonName} />
-        </Row>
-      </Container>
+      <Query query={GET_LOCALSTATE_CURRENT_USER}>
+        {({ data, loading, error }) => {
+          return (
+            <Container>
+              <Row>
+                <Column>
+                  {!this.state.loading && (
+                    <PokemonImage image={this.state.currentPokemonImage} shown={this.state.shown} />
+                  )}
+                </Column>
+                <Column>
+                  <GameStatsBoard changeShown={this.changeShown} newPokemon={this.newPokemon} />
+                </Column>
+              </Row>
+              <Row>
+                {!this.state.loading && (
+                  <NameDisplay  name={this.state.currentPokemonName} />
+                )}
+              </Row>
+            </Container>
+          )
+        }}
+      </Query>
     );
   }
 }
