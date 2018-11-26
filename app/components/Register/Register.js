@@ -46,7 +46,6 @@ class Register extends Component {
                 e.preventDefault();
                 NProgress.start();
                 const res = await createUser();
-                console.log(res);
                 this.setState({ name: '', email: '', password: '', confirmPassword: '' });
                 Router.push({
                   pathname: '/menu',

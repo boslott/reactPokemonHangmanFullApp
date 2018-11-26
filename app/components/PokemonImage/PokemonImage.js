@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { PokemonImageStyles, HiddenPokemonImageStyles } from './PokemonImageStyles';
+import { PokemonImageStyles } from './PokemonImageStyles';
 
 class PokemonImage extends Component {
   render() {

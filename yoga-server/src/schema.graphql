@@ -23,11 +23,13 @@ type Mutation {
   deleteUser(id: ID!): User
   signin(email: String!, password: String!): User!
   signout: SuccessMessage
+  changeGameOption(option: String!, userId: ID!): User!
 }
 
 type Query {
   me: User
   users: User
+  gameOption: GameOption!
 }
 
 """ We define User on the client side to prevent security issues of users being able to reset each other's passwords and the such """
@@ -37,6 +39,7 @@ type User {
   email: String!
   password: String!
   permissions: [Permission!]! 
+  gameOptions: [GameOption!]!
 }
 
 type Pokemon {

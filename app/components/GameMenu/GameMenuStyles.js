@@ -9,18 +9,18 @@ const GameMenuStyles = styled.div`
     display: block;
     margin: 0;
     padding: 0;
-    font-size: 6rem;
+    font-size: 5rem;
     color: ${props => props.theme.dkBlue};
   }
   & p {
     margin: 0;
     padding: 0;
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: ${props => props.theme.dkBlue};
     text-align: center;
   }
   & div {
-    margin: 1rem;
+    margin: 4rem;
     text-align: center;
   }
   & button,
@@ -35,7 +35,7 @@ const GameMenuStyles = styled.div`
     border-radius: 1rem;
     border-color: ${props => props.theme.blue};
     border-width: 0.2rem;
-    margin: 1rem 3rem;
+    margin: 2rem 3rem;
     cursor: pointer;
     &:hover, &:focus {
       transform: translateY(-3px);

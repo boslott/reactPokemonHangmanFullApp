@@ -18,6 +18,20 @@ function createClient({ headers }) {
     clientState: {
       resolvers: {
         Mutation: {
+          setCurrentUser(_, variables, ctx) {
+            // Query the DB for the current user
+
+            // Set the current user to the local state
+            const currentUser ={
+              data: {
+                id: variables.id,
+                name: variables.name,
+                gameOption: variables.gameOption,
+              },
+            };
+            caches.writeData(data);
+            return data;
+          }
           // params: (_, variables, ApolloClient)
           // toggleCart(_, variables, { cache }) {
           //   // First read the cartOpen value from the cache
@@ -34,7 +48,12 @@ function createClient({ headers }) {
         },
       },
       defaults:  {
-        // cartOpen: false,
+        currentUser: {
+          __typename: 'CurrentUser',
+          id: '0001',
+          name: 'Carl Default',
+          gameOption: 'DEMO',
+        }
       }
     }
   });
